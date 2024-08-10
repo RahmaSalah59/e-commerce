@@ -1,0 +1,91 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Simple Ecommerce</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+        <!-- Bootstrap icons-->
+        <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{% url 'store:home' %}">Ecommerce</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'store:home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'store:about' %}">About</a></li>
+                        {% if categorise %}
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorise</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>&nbsp;&nbsp;All Categorise</li>   
+                                <li><hr class="dropdown-divider" /></li>
+                             
+                                {% for item  in categorise %}
+                                <li><a class="dropdown-item" href="{% url 'store:category' item.slug %}">{{item.name}} </a></li>
+                                {% endfor %}    
+                               
+        
+                            </ul>
+                            
+                        </li>   {% endif %}  
+                    </ul>
+                    <form class="d-flex">
+                        <a class="btn btn-outline-dark" href="{% url 'cart:summery' %}"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                              </svg>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </a>
+                        {% if user.is_authenticated %}
+                        &nbsp;&nbsp;
+                        <button class="btn btn-outline-dark" > <a class="nav-link active" href="{% url 'store:logout' %}"> Logout </a></button>
+                        
+                        {% else %}
+                        &nbsp;&nbsp;
+                        <button class="btn btn-outline-dark" > <a class="nav-link active" href="{% url 'store:signup' %}"> sign up </a></button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-outline-dark" > <a class="nav-link active" href="{% url 'store:login' %}"> Login </a></button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </nav>
+        
+        {% block content %}
+            
+        {% endblock content %}
+            
+        
+        <!-- Footer-->
+        <footer class="py-5 bg-dark fixed-bottom" >
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src=" {% static 'js/bootstrap.bundle.min.js' %} " ></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <script>// Add this script at the bottom of your HTML (before closing body tag)
+            document.getElementById('navbarDropdown').addEventListener('click', function() {
+                const dropdown = new bootstrap.Dropdown(this);
+                dropdown.toggle();
+            });
+             </script>
+    </body>
+</html>

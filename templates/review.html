@@ -1,0 +1,38 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center mt-3">
+<div class="card" style="width: 27rem;">
+    <div class="card h-100">                                
+    <!-- Product image-->
+    <img src="{{item.image.url}}" class="card-img-top" alt="..."  />
+    <!-- Product details-->
+    <div class="card-body p-4">
+        <div class="text-center">
+            <!-- Product name-->
+            <h5 class="fw-bolder">{{item.name}}</h5>
+            <!-- Product price-->
+            
+            {% if item.is_sale %}
+            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+
+            <span class="text-muted text-decoration-line-through">{{item.sale_price}}$</span>
+            {{item.price}}$
+           {% else %} {{item.price}}$ {% endif %} <br> 
+           <strong> Description: </strong><br> 
+           {{item.description}}
+    </div>
+    </div>
+    <!-- Product actions-->
+    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add TO Cart</a>
+            <a class="btn btn-outline-dark mt-auto" href="{% url 'store:home' %}">back</a></div>
+    </div>
+</div>
+</div>
+
+</div>
+
+{% endblock content %}
+    

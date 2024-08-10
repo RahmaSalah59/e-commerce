@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<br> <br>
+    <div class="container d-flex justify-content-center">
+        <div class="col-md-6">  <!-- Adjust the column width as per your requirement -->
+            <div class="mb-3">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button class="boxed-btn3 w-100" type="submit">Login</button>    
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
